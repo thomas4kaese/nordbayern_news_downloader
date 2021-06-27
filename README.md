@@ -1,5 +1,6 @@
 # nordbayern_news_downloader
 download pdf e-newspaper from nordbayern.de (for registered accounts)
+
 2021 version for new website
 
 # prerequisites
