@@ -10,6 +10,7 @@ download pdf e-newspaper from nordbayern.de (for registered accounts)
 
 OR
 - docker
+- be paying customer of nordbayern.de e-paper
 
 # usage
 - change username and pw (yes, its in plain text)
