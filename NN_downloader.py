@@ -2,13 +2,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 import time
 import pathlib
 import os
 
-DEBUG_MODE = 1
+DEBUG_MODE = 0
 EMAIL = """EMAIL"""
 PASSWORD = """PASSWORD"""
 
@@ -20,8 +21,17 @@ options.add_experimental_option("prefs", {
     "download.directory_upgrade": True,
     "safebrowsing.enabled": True
 })
+
 if not DEBUG_MODE: options.add_argument("--headless")
+# Website detects headless mode, we are thus faking a user client
+if not DEBUG_MODE: options.add_argument("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36")
+
+# headless mode sometimes struggles with unsigned certificates, use the following in this case
+# capabilities = DesiredCapabilities.CHROME.copy()
+# capabilities['acceptSslCerts'] = True 
+# capabilities['acceptInsecureCerts'] = True
 browser = Chrome(options=options) # executable_path = r'PATH' if not in %PATH%
+# browser = Chrome(options=options,desired_capabilities=capabilities) # executable_path = r'PATH' if not in %PATH%
 browser.delete_all_cookies()
 
 # Landing Page
