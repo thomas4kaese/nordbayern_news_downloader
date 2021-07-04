@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.options import Options
 import time
 import pathlib
 import os
+import argparse
 
 DEBUG_MODE = 0
 EMAIL = """EMAIL"""
