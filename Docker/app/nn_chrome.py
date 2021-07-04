@@ -201,5 +201,5 @@ if is_file_downloaded(file_path, 60):
     # if not DEBUG_MODE: browser.quit()
     
 if args["filename"]:
-    os.rename(file_path, base_path + '/' + args["filename"])
+    os.replace(file_path, base_path + '/' + args["filename"])
  
