@@ -13,6 +13,10 @@ DEBUG_MODE = 0
 EMAIL = """EMAIL"""
 PASSWORD = """PASSWORD"""
 
+# Parser for download path arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("-p", "--path", required = False, help = "Path to the download folder, defaults to /app")
+
 # Create Browser instance
 options = Options()
 options.binary_location = "/usr/lib/chromium/chrome"
@@ -179,7 +183,10 @@ def is_file_downloaded(filename, timeout=60):
 
 # Filename example: 2021-06-26_Nuernberger_Nachrichten_-_2021-06-26.pdf
 issue_date = issue.split(" ")[-1]
-file_path = str(pathlib.Path().resolve()) + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
+if args["path"]:
+    file_path = args["path"] + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
+else: 
+    file_path = str(pathlib.Path().resolve()) + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
 print('(Info) Step 4: Filename is ' + file_path + '.')
 if is_file_downloaded(file_path, 60):
     browser.close()
