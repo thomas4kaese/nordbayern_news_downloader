@@ -19,4 +19,6 @@ RUN pip3 install selenium
 #CMD ["chromedriver", "--port=4444", "--whitelisted-ips="]
 
 WORKDIR /app
-CMD ["python3", "/app/nn_chrome.py"]
+COPY app /app
+ENTRYPOINT ["python3", "/app/nn_chrome.py"]
+#CMD ["python3", "/app/nn_chrome.py"]
