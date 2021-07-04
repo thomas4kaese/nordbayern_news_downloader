@@ -20,8 +20,8 @@ parser.add_argument("-d", "--dir", required = False, help = "Download directory,
 parser.add_argument("-f", "--filename", required = False, help = "Filename, defaults to publisher's choice (Date+Issue+Date.pdf)")
 args = vars(parser.parse_args())
 
-if args["path"]:
-    base_path = args["path"]
+if args["dir"]:
+    base_path = args["dir"]
 else: 
     base_path = str(pathlib.Path().resolve())
 
@@ -191,10 +191,7 @@ def is_file_downloaded(filename, timeout=60):
 
 # Filename example: 2021-06-26_Nuernberger_Nachrichten_-_2021-06-26.pdf - this is not our choice but default
 issue_date = issue.split(" ")[-1]
-if args["path"]:
-    file_path = base_path + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
-else: 
-    file_path = base_path + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
+file_path = base_path + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
 
 print('(Info) Step 4: Filename is ' + file_path + '.')
 if is_file_downloaded(file_path, 60):
