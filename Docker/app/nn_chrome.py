@@ -14,10 +14,15 @@ DEBUG_MODE = 0
 EMAIL = """EMAIL"""
 PASSWORD = """PASSWORD"""
 
-# Parser for download path arguments
+# Parser for download path arguments: we want to pick a download path in the docker container, if not specified use /app
 parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--path", required = False, help = "Path to the download folder, defaults to /app")
 args = parser.parse_args()
+
+if args["path"]:
+    base_path = args["path"]
+else: 
+    base_path = str(pathlib.Path().resolve())
 
 # Create Browser instance
 options = Options()
@@ -136,7 +141,7 @@ try:
 except:
     print('(Error) Step 3: Selecting issue failed.')
 
-# Get issue from title; this is needed to checking the download progress since it is part of filename#
+# Get issue from title; this is needed to check the download progress since it is part of filename
 # date cant be use since sunday delivers saturday issue :-)
 issue = browser.title
 
@@ -183,12 +188,13 @@ def is_file_downloaded(filename, timeout=60):
         print("(Info) Step 4: File found - exiting.")
         return True
 
-# Filename example: 2021-06-26_Nuernberger_Nachrichten_-_2021-06-26.pdf
+# Filename example: 2021-06-26_Nuernberger_Nachrichten_-_2021-06-26.pdf - this is not our choice but default
 issue_date = issue.split(" ")[-1]
 if args["path"]:
-    file_path = args["path"] + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
+    file_path = base_path + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
 else: 
-    file_path = str(pathlib.Path().resolve()) + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
+    file_path = base_path + '/' + issue_date + '_Nuernberger_Nachrichten_-_' + issue_date + '.pdf'
+
 print('(Info) Step 4: Filename is ' + file_path + '.')
 if is_file_downloaded(file_path, 60):
     browser.close()
