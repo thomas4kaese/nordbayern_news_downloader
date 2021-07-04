@@ -18,7 +18,7 @@ PASSWORD = """PASSWORD"""
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--dir", required = False, help = "Download directory, defaults to /app")
 parser.add_argument("-f", "--filename", required = False, help = "Filename, defaults to publisher's choice (Date+Issue+Date.pdf)")
-args = parser.parse_args()
+args = vars(parser.parse_args())
 
 if args["path"]:
     base_path = args["path"]
