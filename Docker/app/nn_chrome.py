@@ -16,7 +16,8 @@ PASSWORD = """PASSWORD"""
 
 # Parser for download path arguments: we want to pick a download path in the docker container, if not specified use /app
 parser = argparse.ArgumentParser()
-parser.add_argument("-p", "--path", required = False, help = "Path to the download folder, defaults to /app")
+parser.add_argument("-d", "--dir", required = False, help = "Download directory, defaults to /app")
+parser.add_argument("-f", "--filename", required = False, help = "Filename, defaults to publisher's choice (Date+Issue+Date.pdf)")
 args = parser.parse_args()
 
 if args["path"]:
@@ -201,3 +202,7 @@ if is_file_downloaded(file_path, 60):
     browser.quit()
     # if not DEBUG_MODE: browser.close()
     # if not DEBUG_MODE: browser.quit()
+    
+if args["filename"]:
+    os.rename(file_path, base_path + '/' + args["filename"])
+ 
