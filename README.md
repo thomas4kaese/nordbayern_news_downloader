@@ -19,7 +19,7 @@ OR
 - run py file
 
 OR
-- run docker-container, mount app as /app
+- run docker-container, mount target download dir as volume and pass with "--dir $PATH" argument
 
 # known issues
 - only works for Nürnberger Nachrichten for now, need to edit browser.get(...) at the end of step 1 for other papers
