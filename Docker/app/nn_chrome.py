@@ -17,6 +17,7 @@ PASSWORD = """PASSWORD"""
 # Parser for download path arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--path", required = False, help = "Path to the download folder, defaults to /app")
+args = parser.parse_args()
 
 # Create Browser instance
 options = Options()
